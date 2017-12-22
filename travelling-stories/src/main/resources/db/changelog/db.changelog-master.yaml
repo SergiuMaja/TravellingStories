@@ -1,0 +1,230 @@
+databaseChangeLog:
+    - changeSet:
+        id: 1
+        author: Sergiu.Maja
+        changes:
+          - createTable:
+              tableName: user
+              columns:
+                - column:
+                    name: id
+                    type: bigInt
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: screenName
+                    type: varchar(100)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: password
+                    type: varchar(100)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: email
+                    type: varchar(100)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: registrationDate
+                    type: timestamp
+                    constraints:
+                      nullable: false
+                - column:
+                    name: receiveEmail
+                    type: boolean
+                - column:
+                    name: updatedDate
+                    type: timestamp
+    - changeSet:
+        id: 2
+        author: Sergiu.Maja
+        changes:
+          - createTable:
+              tableName: destination
+              columns:
+                - column:
+                    name: id
+                    type: bigInt
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: country
+                    type: varchar(100)
+                - column:
+                    name: city
+                    type: varchar(100)
+                - column: 
+                    name: title
+                    type: varchar(255)
+                - column:
+                    name: latitude
+                    type: varchar(100)
+                - column:
+                    name: longitude
+                    type: varchar(100)
+    - changeSet:
+        id: 3
+        author: Sergiu.Maja
+        changes:
+          - createTable:
+              tableName: story
+              columns:
+                - column:
+                    name: id
+                    type: bigInt
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: userId
+                    type: bigInt
+                - column:
+                    name: destinationId
+                    type: bigInt
+                - column:
+                    name: title
+                    type: varchar(255)
+                - column:
+                    name: createdDate
+                    type: timestamp
+                - column:
+                    name: updatedDate
+                    type: timestamp
+                - column:
+                    name: rating
+                    type: float
+                - column:
+                    name: ratesNumber
+                    type: int
+                - column:
+                    name: resources
+                    type: varchar(500)
+          - addForeignKeyConstraint:
+              baseColumnNames: userId
+              baseTableName: story
+              constraintName: fk_story_user
+              referencedColumnNames: id
+              referencedTableName: user
+          - addForeignKeyConstraint:
+              baseColumnNames: destinationId
+              baseTableName: story
+              constraintName: fk_story_destination
+              referencedColumnNames: id
+              referencedTableName: destination
+    - changeSet:
+        id: 4
+        author: Sergiu.Maja
+        changes:
+          - createTable:
+              tableName: description
+              columns:
+                - column:
+                    name: id
+                    type: bigInt
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: storyId
+                    type: bigInt
+                - column:
+                    name: type
+                    type: varchar(100)
+                - column:
+                    name: description
+                    type: text
+          - addForeignKeyConstraint:
+              baseColumnNames: storyId
+              baseTableName: description
+              constraintName: fk_description_story
+              referencedColumnNames: id
+              referencedTableName: story                  
+    - changeSet:
+        id: 5
+        author: Sergiu.Maja
+        changes:
+          - createTable:
+              tableName: story_rating
+              columns:
+                - column:
+                    name: id
+                    type: bigInt
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: userId
+                    type: bigInt
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: storyId
+                    type: bigInt
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: rate
+                    type: int
+                    constraints:
+                      nullable: false
+          - addForeignKeyConstraint:
+              baseColumnNames: userId
+              baseTableName: story_rating
+              constraintName: fk_user_rating
+              referencedColumnNames: id
+              referencedTableName: user
+          - addForeignKeyConstraint:
+              baseColumnNames: storyId
+              baseTableName: story_rating
+              constraintName: fk_story_rating
+              referencedColumnNames: id
+              referencedTableName: story
+    - changeSet:
+        id: 6
+        author: Sergiu.Maja
+        changes:
+          - createTable:
+              tableName: favorites
+              columns:
+                - column:
+                    name: id
+                    type: bigInt
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: userId
+                    type: bigInt
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: destinationId
+                    type: bigInt
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+          - addForeignKeyConstraint:
+              baseColumnNames: userId
+              baseTableName: favorites
+              constraintName: fk_user_favorite
+              referencedColumnNames: id
+              referencedTableName: user
+          - addForeignKeyConstraint:
+              baseColumnNames: destinationId
+              baseTableName: favorites
+              constraintName: fk_favorite_destination
+              referencedColumnNames: id
+              referencedTableName: destination                                             
