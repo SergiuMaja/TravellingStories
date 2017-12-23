@@ -36,12 +36,8 @@ public class UserService {
 		User user = userRepository.findOne(userId);
 
 		UserDTO dto;
-
-		if (user != null) {
-			dto = new UserDTO(user);
-		} else {
-			return null;
-		}
+		
+		dto = (user != null) ? new UserDTO(user) : null;
 
 		return dto;
 	}

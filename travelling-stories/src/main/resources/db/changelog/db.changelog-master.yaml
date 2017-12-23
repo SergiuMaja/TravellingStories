@@ -54,6 +54,9 @@ databaseChangeLog:
                       primaryKey: true
                       nullable: false
                 - column:
+                    name: continent
+                    type: varchar(100)
+                - column:
                     name: country
                     type: varchar(100)
                 - column:
