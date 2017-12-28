@@ -2,12 +2,18 @@ package ro.tuc.travellingstories.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity(name = "user")
 public class User implements Serializable {
@@ -21,6 +27,9 @@ public class User implements Serializable {
 	private Date registrationDate;
 	private Boolean receiveEmail;
 	private Date updatedDate;
+	private List<Story> userStories;
+	private List<Story> ratedStories;
+	private List<Destination> favorites;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,6 +93,39 @@ public class User implements Serializable {
 	
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+	
+	@OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
+	public List<Story> getUserStories() {
+		return userStories;
+	}
+
+	public void setUserStories(List<Story> userStories) {
+		this.userStories = userStories;
+	}
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "story_rating", 
+			joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id") },
+			inverseJoinColumns = { @JoinColumn(name = "storyId", referencedColumnName = "id") })
+	public List<Story> getRatedStories() {
+		return ratedStories;
+	}
+
+	public void setRatedStories(List<Story> ratedStories) {
+		this.ratedStories = ratedStories;
+	}
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "favorites",
+			joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id") },
+			inverseJoinColumns = { @JoinColumn(name = "destinationId", referencedColumnName = "id") })
+	public List<Destination> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(List<Destination> favorites) {
+		this.favorites = favorites;
 	}
 	
 }

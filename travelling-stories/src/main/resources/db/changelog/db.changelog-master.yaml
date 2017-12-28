@@ -142,7 +142,7 @@ databaseChangeLog:
                     name: type
                     type: varchar(100)
                 - column:
-                    name: description
+                    name: details
                     type: text
           - addForeignKeyConstraint:
               baseColumnNames: storyId
