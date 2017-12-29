@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -125,7 +126,7 @@ public class Story implements Serializable {
 		this.raters = raters;
 	}
 	
-	@OneToMany(mappedBy = "story", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "story", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public List<Description> getDescriptions() {
 		return descriptions;
 	}

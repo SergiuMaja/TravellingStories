@@ -32,6 +32,10 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	public User findById(int userId) {
+		return userRepository.findOne(userId);
+	}
+	
 	public UserDTO findUserById(int userId) {
 		User user = userRepository.findOne(userId);
 

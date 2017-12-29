@@ -30,6 +30,10 @@ public class DestinationService {
 		
 		return destinationDTOs;
 	}
+	
+	public Destination findById(int id) {
+		return destinationRepository.findOne(id);
+	}
 
 	public DestinationDTO findDestinationById(int id) {
 		Destination destination = destinationRepository.findOne(id);

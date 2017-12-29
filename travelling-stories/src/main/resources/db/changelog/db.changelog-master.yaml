@@ -140,7 +140,7 @@ databaseChangeLog:
                     type: bigInt
                 - column:
                     name: type
-                    type: varchar(100)
+                    type: ENUM('ACCOMMODATION','TRANSPORTATION','CULTURE','FOOD','EXPENSES','ATTRACTIONS')
                 - column:
                     name: details
                     type: text
