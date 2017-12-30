@@ -28,7 +28,7 @@ public class User implements Serializable {
 	private Boolean receiveEmail;
 	private Date updatedDate;
 	private List<Story> userStories;
-	private List<Story> ratedStories;
+	private List<StoryRating> ratedStories;
 	private List<Destination> favorites;
 	
 	@Id
@@ -104,15 +104,12 @@ public class User implements Serializable {
 		this.userStories = userStories;
 	}
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "story_rating", 
-			joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id") },
-			inverseJoinColumns = { @JoinColumn(name = "storyId", referencedColumnName = "id") })
-	public List<Story> getRatedStories() {
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	public List<StoryRating> getRatedStories() {
 		return ratedStories;
 	}
 
-	public void setRatedStories(List<Story> ratedStories) {
+	public void setRatedStories(List<StoryRating> ratedStories) {
 		this.ratedStories = ratedStories;
 	}
 	

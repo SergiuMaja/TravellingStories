@@ -26,7 +26,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public UserDTO getUserById(@PathVariable("id") int id) {
-		return userService.findUserById(id);
+		return userService.getUserById(id);
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

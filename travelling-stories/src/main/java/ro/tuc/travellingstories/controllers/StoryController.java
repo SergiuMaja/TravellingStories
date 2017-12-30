@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ro.tuc.travellingstories.dto.DescriptionDTO;
 import ro.tuc.travellingstories.dto.StoryDTO;
+import ro.tuc.travellingstories.dto.StoryRatingDTO;
 import ro.tuc.travellingstories.services.DescriptionService;
 import ro.tuc.travellingstories.services.StoryService;
 
@@ -29,14 +30,28 @@ public class StoryController {
 		return storyService.findAll();
 	}
 	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public StoryDTO getStoryById(@PathVariable("id") int id) {
+		return storyService.getStoryById(id);
+	}
+	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public StoryDTO saveStory(@RequestBody StoryDTO storyDTO) {
 		 return storyService.addOrUpdate(storyDTO);
 	}
 	
-	
 	@RequestMapping(value = "/{id}/descriptions", method = RequestMethod.GET)
 	public List<DescriptionDTO> getStoryDescriptions(@PathVariable("id") int id) {
 		return descriptionService.getDescriptionsByStoryId(id);
+	}
+	
+	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
+	public List<StoryDTO> getStoriesForUser(@PathVariable("userId") int userId) {
+		return storyService.getStoriesForUser(userId);
+	}
+	
+	@RequestMapping(value = "/rate", method = RequestMethod.POST)
+	public StoryDTO rateStory(@RequestBody StoryRatingDTO storyRating) {
+		return storyService.rateStory(storyRating);
 	}
 }

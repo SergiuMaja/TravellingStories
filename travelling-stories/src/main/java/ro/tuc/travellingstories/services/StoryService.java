@@ -18,11 +18,14 @@ import org.springframework.util.StringUtils;
 import ro.tuc.travellingstories.dto.DescriptionDTO;
 import ro.tuc.travellingstories.dto.DestinationDTO;
 import ro.tuc.travellingstories.dto.StoryDTO;
+import ro.tuc.travellingstories.dto.StoryRatingDTO;
 import ro.tuc.travellingstories.entities.Description;
 import ro.tuc.travellingstories.entities.Destination;
 import ro.tuc.travellingstories.entities.Story;
+import ro.tuc.travellingstories.entities.StoryRating;
 import ro.tuc.travellingstories.entities.User;
 import ro.tuc.travellingstories.exceptions.InvalidStoryException;
+import ro.tuc.travellingstories.repositories.StoryRatingRepository;
 import ro.tuc.travellingstories.repositories.StoryRepository;
 
 @Service
@@ -30,6 +33,9 @@ public class StoryService {
 
 	@Autowired
 	private StoryRepository storyRepository;
+	
+	@Autowired
+	private StoryRatingRepository storyRatingRepository;
 	
 	@Autowired
 	private DestinationService destinationService;
@@ -43,6 +49,10 @@ public class StoryService {
 	private static final DateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	private static final Log LOGGER = LogFactory.getLog(StoryService.class);
 
+	/**
+	 * 
+	 * @return all existent stories
+	 */
 	public List<StoryDTO> findAll() {
 		Iterable<Story> stories = storyRepository.findAll();
 		
@@ -57,6 +67,30 @@ public class StoryService {
 		return result;
 	}
 	
+	/**
+	 * Get a story dto for a given id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public StoryDTO getStoryById(int id) {
+		StoryDTO result = null;
+
+		Story story = storyRepository.findOne(id);
+
+		if (story != null) {
+			result = convertStoryToStoryDTO(story);
+		}
+
+		return result;
+	}
+	
+	/**
+	 * Add or update a story. Also destinations and descriptions entities are added
+	 * 
+	 * @param storyDTO
+	 * @return the new added story
+	 */
 	public StoryDTO addOrUpdate(StoryDTO storyDTO) {
 		StoryDTO result = null;
 		try {
@@ -84,6 +118,113 @@ public class StoryService {
 		return result;
 	}
 	
+	/**
+	 * Get all stories that belong to a user
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public List<StoryDTO> getStoriesForUser(int userId) {
+		Iterable<Story> stories = storyRepository.findByCreatorId(userId);
+		
+		List<StoryDTO> result = new ArrayList<StoryDTO>();
+		
+		Iterator<Story> it = stories.iterator();
+		
+		while(it.hasNext()) {
+			result.add(convertStoryToStoryDTO(it.next()));
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Method used when a user rates a story
+	 * 
+	 * @param storyRating dto encapsulating the story id, the user id and the rate given
+	 * @return the story after it was rated
+	 */
+	public StoryDTO rateStory(StoryRatingDTO storyRatingDTO) {
+		StoryDTO result = null;
+
+		User user = userService.findById(storyRatingDTO.getUserId());
+		Story story = storyRepository.findOne(storyRatingDTO.getStoryId());
+
+		if (user != null && story != null) {
+			StoryRating storyRating = computeRatingForStoryAndGetAddedRate(user, story, storyRatingDTO);
+
+			StoryRating saved = storyRatingRepository.save(storyRating);
+
+			user.getRatedStories().add(saved);
+			story.getRaters().add(saved);
+
+			userService.addOrUpdateUser(user);
+			storyRepository.save(story);
+
+			result = convertStoryToStoryDTO(story);
+		}
+
+		return result;
+	}
+	
+	/**
+	 * Method used to create an entity which holds the rate a user added to a story and calculate the new rating 
+	 * for the story
+	 * @param user
+	 * @param story
+	 * @param storyRatingDTO
+	 * @return the existing entity with the updated rate if the user already rated the story, otherwise a new entity
+	 */
+	private StoryRating computeRatingForStoryAndGetAddedRate(User user, Story story, StoryRatingDTO storyRatingDTO) {
+		int rate = storyRatingDTO.getRate();
+		
+		StoryRating storyRating = storyRatingRepository.findByUserIdAndStoryId(user.getId(), story.getId());
+
+		if (storyRating == null) {
+			storyRating = new StoryRating();
+			storyRating.setUser(user);
+			storyRating.setStory(story);
+			
+			computeNewRating(story, rate, null);
+		} else {
+			int oldRate = storyRating.getRate();
+			
+			if(oldRate != rate) { //the story rating must be recomputed since the user changed his rate
+				computeNewRating(story, rate, oldRate);
+			}
+		}
+		storyRating.setRate(storyRatingDTO.getRate());
+		
+		return storyRating;
+	}
+
+	/**
+	 * Computes the story's new rating after a user added a rate
+	 * 
+	 * @param ratedStory
+	 * @param rate
+	 */
+	private void computeNewRating(Story ratedStory, int rate, Integer oldRate) {
+		int ratesNumber = ratedStory.getRatesNumber();
+		double newRating;
+			
+		if(oldRate == null) {
+			newRating = (ratedStory.getRating() * ratesNumber + rate) / (ratesNumber + 1);
+			ratedStory.setRatesNumber(ratesNumber + 1);
+		} else {
+			newRating = (ratedStory.getRating() * ratesNumber + rate - oldRate) / ratesNumber;
+		}
+
+		ratedStory.setRating(newRating);
+	}
+
+	/**
+	 * Convert a dto to an entity
+	 * 
+	 * @param storyDTO
+	 * @return
+	 * @throws ParseException
+	 */
 	private Story convertToStory(StoryDTO storyDTO) throws ParseException {
 		Story story = new Story();
 		
@@ -118,6 +259,12 @@ public class StoryService {
 		return story;
 	}
 
+	/**
+	 * Convert a story to a dto
+	 * 
+	 * @param story
+	 * @return
+	 */
 	private StoryDTO convertStoryToStoryDTO(Story story) {
 		StoryDTO storyDTO = new StoryDTO();
 
@@ -149,6 +296,12 @@ public class StoryService {
 		return storyDTO;
 	}
 
+	/**
+	 * Validate a story mandatory fields
+	 * 
+	 * @param storyDTO
+	 * @return true if the story is valid, false otherwise
+	 */
 	private boolean validateStory(StoryDTO storyDTO) {
 		if(StringUtils.isEmpty(storyDTO.getCreatorId())) {
 			return false;
@@ -161,4 +314,5 @@ public class StoryService {
 		}
 		return true;
 	}
+
 }

@@ -36,13 +36,15 @@ public class UserService {
 		return userRepository.findOne(userId);
 	}
 	
-	public UserDTO findUserById(int userId) {
+	public UserDTO getUserById(int userId) {
 		User user = userRepository.findOne(userId);
 
-		UserDTO dto;
+		UserDTO dto = null;
 		
-		dto = (user != null) ? new UserDTO(user) : null;
-
+		if(user != null) {
+			dto = new UserDTO(user);
+		}
+		
 		return dto;
 	}
 	
@@ -82,6 +84,10 @@ public class UserService {
 	
 	public void deleteUser(int id) {
 		userRepository.delete(id);
+	}
+	
+	public User addOrUpdateUser(User user) {
+		return userRepository.save(user);
 	}
 
 	/**

@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -30,7 +29,7 @@ public class Story implements Serializable {
 	private Double rating;
 	private Integer ratesNumber;
 	private String resources;
-	private List<User> raters;
+	private List<StoryRating> raters;
 	private List<Description> descriptions;
 	
 	@Id
@@ -117,12 +116,12 @@ public class Story implements Serializable {
 		this.resources = resources;
 	}
 	
-	@ManyToMany(mappedBy = "ratedStories", fetch = FetchType.LAZY)
-	public List<User> getRaters() {
+	@OneToMany(mappedBy = "story", fetch = FetchType.LAZY)
+	public List<StoryRating> getRaters() {
 		return raters;
 	}
 
-	public void setRaters(List<User> raters) {
+	public void setRaters(List<StoryRating> raters) {
 		this.raters = raters;
 	}
 	
