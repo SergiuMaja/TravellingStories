@@ -20,8 +20,10 @@ import org.springframework.util.StringUtils;
 import ro.tuc.travellingstories.dto.DestinationDTO;
 import ro.tuc.travellingstories.dto.UserDTO;
 import ro.tuc.travellingstories.entities.Destination;
+import ro.tuc.travellingstories.entities.Story;
 import ro.tuc.travellingstories.entities.User;
 import ro.tuc.travellingstories.exceptions.InvalidUserException;
+import ro.tuc.travellingstories.repositories.StoryRepository;
 import ro.tuc.travellingstories.repositories.UserRepository;
 
 @Service
@@ -34,6 +36,9 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private StoryRepository storyRepository;
 	
 	public User findById(int userId) {
 		return userRepository.findOne(userId);
@@ -86,6 +91,18 @@ public class UserService {
 	}
 	
 	public void deleteUser(int id) {
+		Iterable<Story> stories = storyRepository.findByCreatorId(id);
+		
+		Iterator<Story> it = stories.iterator();
+		
+		User admin = userRepository.findOne(1);
+		
+		while(it.hasNext()) {
+			Story story = it.next();
+			story.setCreator(admin);
+			storyRepository.save(story);
+		}
+		
 		userRepository.delete(id);
 	}
 	

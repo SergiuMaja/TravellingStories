@@ -1,4 +1,9 @@
 databaseChangeLog:
+    - property:
+        name: now
+        value: now()
+        dbms: mysql
+        
     - changeSet:
         id: 1
         author: Sergiu.Maja
@@ -230,4 +235,29 @@ databaseChangeLog:
               baseTableName: favorites
               constraintName: fk_favorite_destination
               referencedColumnNames: id
-              referencedTableName: destination                                             
+              referencedTableName: destination                                          
+    - changeSet:
+        id: 7
+        author: Sergiu.Maja
+        changes:
+          - insert:
+              tableName: user
+              columns:
+                - column:
+                    name: screenName
+                    value: admin
+                - column:
+                    name: password
+                    value: YWRtaW4=
+                - column:
+                    name: email
+                    value: testdevemail1995@gmail.com
+                - column:
+                    name: registrationDate
+                    value: ${now}
+                - column:
+                    name: receiveEmail
+                    valueBoolean: false
+                - column:
+                    name: updatedDate
+                    value: ${now}       
