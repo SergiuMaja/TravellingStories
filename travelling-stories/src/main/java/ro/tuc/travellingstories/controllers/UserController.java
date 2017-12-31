@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ro.tuc.travellingstories.dto.DestinationDTO;
 import ro.tuc.travellingstories.dto.UserDTO;
 import ro.tuc.travellingstories.services.UserService;
 
@@ -39,4 +40,8 @@ public class UserController {
 		userService.deleteUser(id);
 	}
 	
+	@RequestMapping(value = "/{id}/favorites", method = RequestMethod.GET)
+	public List<DestinationDTO> getFavoriteDestinations(@PathVariable("id") int userId) {
+		return userService.getFavoriteDestinations(userId);
+	}
 }

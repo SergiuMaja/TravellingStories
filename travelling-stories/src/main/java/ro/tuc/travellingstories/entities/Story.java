@@ -2,7 +2,7 @@ package ro.tuc.travellingstories.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,8 +29,8 @@ public class Story implements Serializable {
 	private Double rating;
 	private Integer ratesNumber;
 	private String resources;
-	private List<StoryRating> raters;
-	private List<Description> descriptions;
+	private Set<StoryRating> raters;
+	private Set<Description> descriptions;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -117,20 +117,20 @@ public class Story implements Serializable {
 	}
 	
 	@OneToMany(mappedBy = "story", fetch = FetchType.LAZY)
-	public List<StoryRating> getRaters() {
+	public Set<StoryRating> getRaters() {
 		return raters;
 	}
 
-	public void setRaters(List<StoryRating> raters) {
+	public void setRaters(Set<StoryRating> raters) {
 		this.raters = raters;
 	}
 	
 	@OneToMany(mappedBy = "story", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	public List<Description> getDescriptions() {
+	public Set<Description> getDescriptions() {
 		return descriptions;
 	}
 
-	public void setDescriptions(List<Description> descriptions) {
+	public void setDescriptions(Set<Description> descriptions) {
 		this.descriptions = descriptions;
 	}
 	

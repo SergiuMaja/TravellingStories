@@ -9,13 +9,18 @@ import org.springframework.stereotype.Service;
 
 import ro.tuc.travellingstories.dto.DestinationDTO;
 import ro.tuc.travellingstories.entities.Destination;
+import ro.tuc.travellingstories.entities.User;
 import ro.tuc.travellingstories.repositories.DestinationRepository;
+import ro.tuc.travellingstories.repositories.UserRepository;
 
 @Service
 public class DestinationService {
 
 	@Autowired
 	private DestinationRepository destinationRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	public List<DestinationDTO> findAll() {
 		Iterable<Destination> destinations = destinationRepository.findAll();
@@ -35,12 +40,14 @@ public class DestinationService {
 		return destinationRepository.findOne(id);
 	}
 
-	public DestinationDTO findDestinationById(int id) {
+	public DestinationDTO getDestinationById(int id) {
 		Destination destination = destinationRepository.findOne(id);
 		
-		DestinationDTO dto;
+		DestinationDTO dto = null;
 		
-		dto = (destination != null) ? new DestinationDTO(destination) : null;
+		if(destination != null) {
+			dto = new DestinationDTO(destination);
+		}
 		
 		return dto;
 	}
@@ -58,6 +65,19 @@ public class DestinationService {
 	
 	public void deleteDestination(int id) {
 		destinationRepository.delete(id);		
+	}
+	
+	public void addDestinationToUserFavorites(int destinationId, int userId) {
+		Destination destination = destinationRepository.findOne(destinationId);
+		User user = userRepository.findOne(userId);
+
+		if (destination != null && user != null) {
+			user.getFavorites().add(destination);
+			userRepository.save(user);
+
+			destination.getFavs().add(user);
+			destinationRepository.save(destination);
+		}
 	}
 
 	/**

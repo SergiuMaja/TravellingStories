@@ -1,8 +1,10 @@
 package ro.tuc.travellingstories.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +42,9 @@ public class DescriptionService {
 	 * @param ids
 	 * @return description entities
 	 */
-	public List<Description> findDescriptionsByIDs(List<Integer> ids) {
-		return (List<Description>) descriptionRepository.findAll(ids);
+	public Set<Description> findDescriptionsByIDs(List<Integer> ids) {
+		List<Description> list = (List<Description>) descriptionRepository.findAll(ids);
+		return new HashSet<Description>(list);
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package ro.tuc.travellingstories.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,7 @@ public class DestinationController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public DestinationDTO getDestinationById(@PathVariable("id") int id) {
-		return destinationService.findDestinationById(id);
+		return destinationService.getDestinationById(id);
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -37,5 +38,12 @@ public class DestinationController {
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public void deleteDestination(@PathVariable("id") int id) {
 		destinationService.deleteDestination(id);
+	}
+	
+	@RequestMapping(value = "/{id}/favorite", method = RequestMethod.POST)
+	public void addDestinationToFavorites(@PathVariable("id") int destinationId, @RequestBody Map<String, Integer> body) {
+		int userId = body.get("userId");
+		
+		destinationService.addDestinationToUserFavorites(destinationId, userId);
 	}
 }

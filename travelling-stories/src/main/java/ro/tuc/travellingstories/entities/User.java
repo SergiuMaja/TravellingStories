@@ -2,7 +2,7 @@ package ro.tuc.travellingstories.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,9 +27,9 @@ public class User implements Serializable {
 	private Date registrationDate;
 	private Boolean receiveEmail;
 	private Date updatedDate;
-	private List<Story> userStories;
-	private List<StoryRating> ratedStories;
-	private List<Destination> favorites;
+	private Set<Story> userStories;
+	private Set<StoryRating> ratedStories;
+	private Set<Destination> favorites;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -96,20 +96,20 @@ public class User implements Serializable {
 	}
 	
 	@OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
-	public List<Story> getUserStories() {
+	public Set<Story> getUserStories() {
 		return userStories;
 	}
 
-	public void setUserStories(List<Story> userStories) {
+	public void setUserStories(Set<Story> userStories) {
 		this.userStories = userStories;
 	}
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	public List<StoryRating> getRatedStories() {
+	public Set<StoryRating> getRatedStories() {
 		return ratedStories;
 	}
 
-	public void setRatedStories(List<StoryRating> ratedStories) {
+	public void setRatedStories(Set<StoryRating> ratedStories) {
 		this.ratedStories = ratedStories;
 	}
 	
@@ -117,11 +117,11 @@ public class User implements Serializable {
 	@JoinTable(name = "favorites",
 			joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id") },
 			inverseJoinColumns = { @JoinColumn(name = "destinationId", referencedColumnName = "id") })
-	public List<Destination> getFavorites() {
+	public Set<Destination> getFavorites() {
 		return favorites;
 	}
 
-	public void setFavorites(List<Destination> favorites) {
+	public void setFavorites(Set<Destination> favorites) {
 		this.favorites = favorites;
 	}
 	

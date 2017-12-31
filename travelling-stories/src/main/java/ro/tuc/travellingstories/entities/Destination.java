@@ -1,7 +1,7 @@
 package ro.tuc.travellingstories.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,8 +24,8 @@ public class Destination implements Serializable {
 	private String title;
 	private String latitude;
 	private String longitude;
-	private List<Story> stories;
-	private List<User> favs;
+	private Set<Story> stories;
+	private Set<User> favs;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -92,20 +92,20 @@ public class Destination implements Serializable {
 	}
 	
 	@OneToMany(mappedBy = "destination", fetch = FetchType.LAZY)
-	public List<Story> getStories() {
+	public Set<Story> getStories() {
 		return stories;
 	}
 
-	public void setStories(List<Story> stories) {
+	public void setStories(Set<Story> stories) {
 		this.stories = stories;
 	}
 	
 	@ManyToMany(mappedBy = "favorites", fetch = FetchType.LAZY)
-	public List<User> getFavs() {
+	public Set<User> getFavs() {
 		return favs;
 	}
 
-	public void setFavs(List<User> favs) {
+	public void setFavs(Set<User> favs) {
 		this.favs = favs;
 	}
 	

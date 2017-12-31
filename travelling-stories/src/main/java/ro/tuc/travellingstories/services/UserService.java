@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import ro.tuc.travellingstories.dto.DestinationDTO;
 import ro.tuc.travellingstories.dto.UserDTO;
+import ro.tuc.travellingstories.entities.Destination;
 import ro.tuc.travellingstories.entities.User;
 import ro.tuc.travellingstories.exceptions.InvalidUserException;
 import ro.tuc.travellingstories.repositories.UserRepository;
@@ -88,6 +91,20 @@ public class UserService {
 	
 	public User addOrUpdateUser(User user) {
 		return userRepository.save(user);
+	}
+	
+	public List<DestinationDTO> getFavoriteDestinations(int userId) {
+		List<DestinationDTO> result = new ArrayList<DestinationDTO>();
+		User user = userRepository.findOne(userId);
+		
+		Set<Destination> destinations = user.getFavorites();
+		
+		for(Destination d : destinations) {
+			DestinationDTO dto = new DestinationDTO(d);
+			
+			result.add(dto);
+		}
+		return result;
 	}
 
 	/**

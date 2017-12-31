@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.logging.Log;
@@ -246,7 +247,7 @@ public class StoryService {
 		
 		//get the list of ids for the descriptions
 		List<Integer> ids = storyDTO.getDescriptions().stream().map(DescriptionDTO::getId).collect(Collectors.toList());
-		List<Description> descriptions = descriptionService.findDescriptionsByIDs(ids);
+		Set<Description> descriptions = descriptionService.findDescriptionsByIDs(ids);
 		
 		for(Description d : descriptions) {
 			if(d.getStory() == null) {
@@ -284,7 +285,7 @@ public class StoryService {
 		storyDTO.setRatesNumber(story.getRatesNumber());
 		storyDTO.setResources(story.getResources());
 		
-		List<Description> descriptions = story.getDescriptions();
+		Set<Description> descriptions = story.getDescriptions();
 		List<DescriptionDTO> descriptionDTOs = new ArrayList<DescriptionDTO>();
 		for(Description description : descriptions) {
 			DescriptionDTO dto = new DescriptionDTO(description);
