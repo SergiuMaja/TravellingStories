@@ -40,6 +40,11 @@ public class StoryController {
 		 return storyService.addOrUpdate(storyDTO);
 	}
 	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public void deleteStory(@PathVariable("id") int id) {
+		storyService.deleteStory(id);
+	}
+	
 	@RequestMapping(value = "/{id}/descriptions", method = RequestMethod.GET)
 	public List<DescriptionDTO> getStoryDescriptions(@PathVariable("id") int id) {
 		return descriptionService.getDescriptionsByStoryId(id);

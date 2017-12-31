@@ -119,6 +119,10 @@ public class StoryService {
 		return result;
 	}
 	
+	public void deleteStory(int id) {
+		storyRepository.delete(id);
+	}
+	
 	/**
 	 * Get all stories that belong to a user
 	 * 

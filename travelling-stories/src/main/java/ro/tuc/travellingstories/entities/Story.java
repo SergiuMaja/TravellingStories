@@ -116,7 +116,7 @@ public class Story implements Serializable {
 		this.resources = resources;
 	}
 	
-	@OneToMany(mappedBy = "story", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "story", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public Set<StoryRating> getRaters() {
 		return raters;
 	}
