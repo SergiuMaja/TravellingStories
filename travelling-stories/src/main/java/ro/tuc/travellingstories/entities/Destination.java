@@ -100,7 +100,7 @@ public class Destination implements Serializable {
 		this.stories = stories;
 	}
 	
-	@ManyToMany(mappedBy = "favorites", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "favorites", fetch = FetchType.EAGER)
 	public Set<User> getFavs() {
 		return favs;
 	}

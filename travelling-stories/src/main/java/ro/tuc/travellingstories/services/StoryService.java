@@ -5,17 +5,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import ro.tuc.travellingstories.config.TravellingStoriesApplication;
 import ro.tuc.travellingstories.dto.DescriptionDTO;
 import ro.tuc.travellingstories.dto.DestinationDTO;
 import ro.tuc.travellingstories.dto.StoryDTO;
@@ -46,6 +50,9 @@ public class StoryService {
 	
 	@Autowired
 	private DescriptionService descriptionService;
+	
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
 	
 	private static final DateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	private static final Log LOGGER = LogFactory.getLog(StoryService.class);
@@ -94,21 +101,36 @@ public class StoryService {
 	 */
 	public StoryDTO addOrUpdate(StoryDTO storyDTO) {
 		StoryDTO result = null;
+		Map<String, Story> storyAction = new HashMap<String, Story>();
+		
 		try {
-			DestinationDTO savedDestination = destinationService.addOrUpdate(storyDTO.getDestination());
-			storyDTO.setDestination(savedDestination);
-
-			List<DescriptionDTO> savedDescriptions = descriptionService
-					.addOrUpdateStoryDescriptions(storyDTO, storyDTO.getDescriptions());
-			storyDTO.setDescriptions(savedDescriptions);
-
 			boolean isStoryValid = validateStory(storyDTO);
 
 			if (isStoryValid) {
+				//save the destination
+				DestinationDTO savedDestination = destinationService.addOrUpdate(storyDTO.getDestination());
+				storyDTO.setDestination(savedDestination);
+
+				//save the descriptions
+				List<DescriptionDTO> savedDescriptions = descriptionService
+						.addOrUpdateStoryDescriptions(storyDTO, storyDTO.getDescriptions());
+				storyDTO.setDescriptions(savedDescriptions);
+				
 				Story story = convertToStory(storyDTO);
+				
+				//Used to send to the email listener the corresponding action
+				if(story.getId() == null) { //a new story is added
+					storyAction.put("save", story);
+				} else { //a story is edited
+					storyAction.put("edit", story);
+				}
 
 				storyRepository.save(story);
-
+				LOGGER.info("Story with id: " + story.getId() + " was saved to the database.");
+				
+				//send to the queue
+				rabbitTemplate.convertAndSend(TravellingStoriesApplication.SEND_EMAIL_MESSAGE_QUEUE, storyAction);
+				
 				result = convertStoryToStoryDTO(story);
 			} else {
 				throw new InvalidStoryException("Invalid story data");

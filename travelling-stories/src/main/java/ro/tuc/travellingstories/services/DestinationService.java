@@ -95,6 +95,10 @@ public class DestinationService {
 		result.setTitle(destinationDTO.getTitle());
 		result.setLatitude(destinationDTO.getLatitude());
 		result.setLongitude(destinationDTO.getLongitude());
+		if(destinationDTO.getId() != null) {
+			Destination original = destinationRepository.findOne(destinationDTO.getId());
+			result.setFavs(original.getFavs());
+		}
 		
 		return result;
 	}
