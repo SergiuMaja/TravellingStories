@@ -14,6 +14,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import ro.tuc.travellingstories.listener.EmailSendListener;
 
@@ -53,6 +56,21 @@ public class TravellingStoriesApplication {
 	@Bean
 	MessageListenerAdapter sendListenerAdapter(EmailSendListener consumer) {
 		return new MessageListenerAdapter(consumer, "receiveMessage");
+	}
+	
+	/**
+	 * Enabling CORS for the whole application
+	 * 
+	 * @return webMvcConfigurer bean
+	 */
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**");
+			}
+		};
 	}
 	
 	public static void main(String[] args) {
