@@ -9,6 +9,9 @@ import { HeaderComponent } from './header/header.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 
+import { AuthService } from "./auth/auth.service";
+import {HttpModule} from "@angular/http";
+
 
 @NgModule({
   declarations: [
@@ -20,9 +23,10 @@ import { SignupComponent } from './auth/signup/signup.component';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
