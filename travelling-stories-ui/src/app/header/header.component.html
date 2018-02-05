@@ -1,10 +1,16 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="#" class="navbar-brand">Travelling Stories</a>
+      <button type="button" class="navbar-toggle" (click)="isCollapsed = !isCollapsed">
+        <!--<span class="glyphicon glyphicon-menu-hamburger"></span>-->
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Travelling Stories</a>
     </div>
 
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" [ngClass]="{'in' : isCollapsed}">
       <ul class="nav navbar-nav">
         <li><a href="#">Home</a></li>
         <li><a href="#">Users</a></li>
@@ -12,8 +18,8 @@
         <li><a href="#">Favorites</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Register</a></li>
-        <li><a href="#">Login</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li><a href="#">Account</a></li>
         <li><a href="#">Logout</a></li>
       </ul>
