@@ -11,16 +11,22 @@
 
     <div class="collapse navbar-collapse" [ngClass]="{'in' : isCollapsed}">
       <ul class="nav navbar-nav">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Users</a></li>
-        <li><a href="#">My Stories</a></li>
-        <li><a href="#">Favorites</a></li>
+        <li><a href="#" *ngIf="authService.isAuthenticated()">Home</a></li>
+        <li><a href="#" *ngIf="authService.isAdminAuthenticated()">Users</a></li>
+        <ng-template [ngIf]="authService.isRegularUserAuthenticated()">
+          <li><a href="#">My Stories</a></li>
+          <li><a href="#">Favorites</a></li>
+        </ng-template>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a routerLink="/signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li><a href="#">Account</a></li>
-        <li><a href="#">Logout</a></li>
+        <ng-template [ngIf]="!authService.isAuthenticated()">
+          <li><a routerLink="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a routerLink="/signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ng-template>
+        <ng-template [ngIf]="authService.isAuthenticated()">
+          <li><a href="#">Account</a></li>
+          <li><a href="#">Logout</a></li>
+        </ng-template>
       </ul>
     </div>
 

@@ -23,7 +23,10 @@ public class LoginController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<UserDTO> loginUser(@RequestBody Map<String, String> credentials) {
 		UserDTO userDTO = loginService.loginUser(credentials.get("screenName"), credentials.get("password"));
-		
-		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
+		if (userDTO != null) {
+			return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<UserDTO>(userDTO, HttpStatus.NO_CONTENT);
+		}
 	}
 }

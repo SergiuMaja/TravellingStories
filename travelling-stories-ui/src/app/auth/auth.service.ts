@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthService {
+  authenticatedUser: User;
 
   constructor(private http: Http,
               private router: Router) {}
@@ -21,10 +22,24 @@ export class AuthService {
 
     this.http.post('http://localhost:8080/login', body).subscribe(
       (response) => {
-        console.log(response);
-        this.router.navigate(['/']);
+        if(response.status === 200) {
+          this.authenticatedUser = response.json();
+          this.router.navigate(['/']);
+        }
       },
       (error) => console.log(error)
     );
+  }
+
+  isAuthenticated() {
+    return this.authenticatedUser != null;
+  }
+
+  isAdminAuthenticated() {
+    return this.isAuthenticated() && this.authenticatedUser.screenName === 'admin';
+  }
+
+  isRegularUserAuthenticated() {
+    return this.isAuthenticated() && this.authenticatedUser.screenName !== 'admin';
   }
 }
