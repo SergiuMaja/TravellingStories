@@ -24,7 +24,6 @@ export class UserService {
   }
 
   getUser(id: number) {
-    console.log(this.users);
     for(let user of this.users) {
       if(user['id'] === id) {
         return user;

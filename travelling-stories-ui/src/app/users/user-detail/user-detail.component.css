@@ -2,6 +2,7 @@ h3 {
   display: inline-block;
   color: white;
 }
-.dropdown-toggle {
+.btn-group {
   margin-bottom: 15px;
 }
+

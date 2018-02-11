@@ -13,10 +13,11 @@ import { UsersComponent } from './users/users.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserItemComponent } from './users/user-list/user-item/user-item.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
+import { UserStartComponent } from './users/user-start/user-start.component';
+import { DropdownDirective } from "./shared/dropdown.directive";
 
 import { AuthService } from "./auth/auth.service";
 import { UserService } from "./users/user.service";
-import { UserStartComponent } from './users/user-start/user-start.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { UserStartComponent } from './users/user-start/user-start.component';
     UserListComponent,
     UserItemComponent,
     UserDetailComponent,
-    UserStartComponent
+    UserStartComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,
