@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { HttpModule } from "@angular/http";
+import { MatCheckboxModule } from "@angular/material";
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -32,7 +33,8 @@ import { UserService } from "./users/user.service";
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatCheckboxModule
   ],
   providers: [AuthService, UserService],
   bootstrap: [AppComponent]
