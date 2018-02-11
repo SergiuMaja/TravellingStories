@@ -16,6 +16,7 @@ import { UserDetailComponent } from './users/user-detail/user-detail.component';
 
 import { AuthService } from "./auth/auth.service";
 import { UserService } from "./users/user.service";
+import { UserStartComponent } from './users/user-start/user-start.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { UserService } from "./users/user.service";
     UsersComponent,
     UserListComponent,
     UserItemComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    UserStartComponent
   ],
   imports: [
     BrowserModule,

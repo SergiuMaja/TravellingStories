@@ -1,5 +1,5 @@
 <div class="row">
   <div class="col-xs-12">
-    <app-user-item *ngFor="let userIndex of users" [user]="userIndex"></app-user-item>
+    <app-user-item *ngFor="let userEl of users" [user]="userEl" [id]="userEl.id"></app-user-item>
   </div>
 </div>
