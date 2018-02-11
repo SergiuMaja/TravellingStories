@@ -1,10 +1,5 @@
 <div class="row">
   <div class="col-xs-12">
-    <a href="#" class="list-group-item clearfix" *ngFor="let user of users">
-      <div class="pull-left">
-        <h4 class="list-group-item-heading">{{ user.screenName }}</h4>
-      </div>
-    </a>
-    <app-user-item></app-user-item>
+    <app-user-item *ngFor="let userIndex of users" [user]="userIndex"></app-user-item>
   </div>
 </div>
