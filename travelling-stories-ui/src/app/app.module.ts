@@ -11,6 +11,10 @@ import { SignupComponent } from './auth/signup/signup.component';
 
 import { AuthService } from "./auth/auth.service";
 import {HttpModule} from "@angular/http";
+import { UsersComponent } from './users/users.component';
+import { UserListComponent } from './users/user-list/user-list.component';
+import { UserItemComponent } from './users/user-list/user-item/user-item.component';
+import { UserDetailComponent } from './users/user-detail/user-detail.component';
 
 
 @NgModule({
@@ -18,7 +22,11 @@ import {HttpModule} from "@angular/http";
     AppComponent,
     HeaderComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    UsersComponent,
+    UserListComponent,
+    UserItemComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,
