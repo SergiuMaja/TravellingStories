@@ -1,0 +1,16 @@
+form {
+  margin: 15px 0px;
+}
+
+form > .row {
+  margin-top: 15px;
+}
+
+form label {
+  color: white;
+  font-weight: normal;
+}
+
+.btn {
+  min-width: 90px;
+}
