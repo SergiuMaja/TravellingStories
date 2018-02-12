@@ -1,33 +1,33 @@
 <div class="row">
   <div class="col-xs-12">
-    <form>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-xs-12">
           <label for="screenName">Screen Name</label>
-          <input type="text" id="screenName" class="form-control">
+          <input type="text" id="screenName" class="form-control" formControlName="screenName">
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <label for="email">Email</label>
-          <input type="email" id="email" email class="form-control">
+          <input type="email" id="email" email class="form-control" formControlName="email">
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <label for="password">Password</label>
-          <input type="password" id="password" class="form-control">
+          <input type="password" id="password" class="form-control" formControlName="password">
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <label for="receiveEmail">Receive Email</label>
-          <mat-checkbox id="receiveEmail"></mat-checkbox>
+          <mat-checkbox id="receiveEmail" formControlName="receiveEmail"></mat-checkbox>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-success">Save</button>
+          <button type="submit" class="btn btn-success" [disabled]="!userForm.valid">Save</button>
           <button type="button" class="btn btn-danger">Cancel</button>
         </div>
       </div>

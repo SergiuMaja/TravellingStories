@@ -14,3 +14,7 @@ form label {
 .btn {
   min-width: 90px;
 }
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

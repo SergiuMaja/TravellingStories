@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { HttpModule } from "@angular/http";
 import { MatCheckboxModule } from "@angular/material";
@@ -40,7 +40,8 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ReactiveFormsModule
   ],
   providers: [AuthService, UserService],
   bootstrap: [AppComponent]
