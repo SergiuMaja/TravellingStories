@@ -47,7 +47,7 @@ export class UserEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.userForm);
+    this.userService.updateUser(this.id, this.userForm);
   }
 
 }
