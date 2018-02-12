@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { HttpModule } from "@angular/http";
-import { MatCheckboxModule } from "@angular/material";
+import { MatCheckboxModule, MatFormFieldModule, MatInputModule, MatPaginatorModule } from "@angular/material";
+import { MatTableModule } from "@angular/material/table";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -24,7 +26,6 @@ import { DropdownDirective } from "./shared/dropdown.directive";
 import { AuthService } from "./auth/auth.service";
 import { UserService } from "./users/user.service";
 import { AuthGuard } from "./auth/auth-guard.service";
-
 
 @NgModule({
   declarations: [
@@ -50,7 +51,12 @@ import { AuthGuard } from "./auth/auth-guard.service";
     HttpModule,
     AppRoutingModule,
     MatCheckboxModule,
-    ReactiveFormsModule
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthService, UserService, AuthGuard],
   bootstrap: [AppComponent]
