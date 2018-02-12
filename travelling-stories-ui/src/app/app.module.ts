@@ -14,11 +14,15 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UserItemComponent } from './users/user-list/user-item/user-item.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { UserStartComponent } from './users/user-start/user-start.component';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { StoriesComponent } from './stories/stories.component';
+import { StoryDetailComponent } from './stories/story-detail/story-detail.component';
+import { StoryEditComponent } from './stories/story-edit/story-edit.component';
+import { StoryListComponent } from './stories/story-list/story-list.component';
 import { DropdownDirective } from "./shared/dropdown.directive";
 
 import { AuthService } from "./auth/auth.service";
 import { UserService } from "./users/user.service";
-import { UserEditComponent } from './users/user-edit/user-edit.component';
 
 
 @NgModule({
@@ -33,7 +37,11 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
     UserDetailComponent,
     UserStartComponent,
     DropdownDirective,
-    UserEditComponent
+    UserEditComponent,
+    StoriesComponent,
+    StoryDetailComponent,
+    StoryEditComponent,
+    StoryListComponent
   ],
   imports: [
     BrowserModule,

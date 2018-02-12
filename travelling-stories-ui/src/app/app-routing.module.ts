@@ -7,9 +7,21 @@ import { UsersComponent } from "./users/users.component";
 import { UserStartComponent } from "./users/user-start/user-start.component";
 import { UserDetailComponent } from "./users/user-detail/user-detail.component";
 import { UserEditComponent } from "./users/user-edit/user-edit.component";
+import { StoriesComponent } from "./stories/stories.component";
+import { StoryListComponent } from "./stories/story-list/story-list.component";
+import { StoryDetailComponent } from "./stories/story-detail/story-detail.component";
+import { StoryEditComponent } from "./stories/story-edit/story-edit.component";
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/signin', pathMatch: 'full'},
+  { path: '', redirectTo: '/stories', pathMatch: 'full'},
+  { path: 'stories', component: StoriesComponent,
+    children:
+      [
+        { path: '', component: StoryListComponent },
+        { path: ':id', component: StoryDetailComponent },
+        { path: ':id/edit', component: StoryEditComponent }
+      ]
+  },
   { path: 'users', component: UsersComponent,
     children:
       [
