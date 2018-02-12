@@ -54,4 +54,22 @@ export class UserService {
       (error) => console.log(error)
     );
   }
+
+  deleteUser(id: number) {
+    this.users.forEach((user, index) => {
+      if(user['id'] === id) {
+        this.users.splice(index,1);
+
+      }
+    });
+    //DELETING THE USER FROM THE SERVER
+    this.http.delete('http://localhost:8080/user/delete/' + id).subscribe(
+      (response) => {
+        if(response.status === 200) {
+          this.usersChanged.next(this.users.slice());
+        }
+      },
+      (error) => console.log(error)
+    );
+  }
 }

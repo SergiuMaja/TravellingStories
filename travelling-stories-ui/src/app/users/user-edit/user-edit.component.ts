@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { UserService } from "../user.service";
 
@@ -13,7 +13,8 @@ export class UserEditComponent implements OnInit {
   userForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
-              private userService: UserService) { }
+              private userService: UserService,
+              private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -48,6 +49,10 @@ export class UserEditComponent implements OnInit {
 
   onSubmit() {
     this.userService.updateUser(this.id, this.userForm);
+    this.onCancel();
   }
 
+  onCancel() {
+    this.router.navigate(['../'], {relativeTo: this.route});
+  }
 }
