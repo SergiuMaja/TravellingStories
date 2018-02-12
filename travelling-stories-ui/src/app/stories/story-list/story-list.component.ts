@@ -8,7 +8,7 @@ import { MatTableDataSource } from "@angular/material";
 })
 export class StoryListComponent implements OnInit {
   dataSource: MatTableDataSource<StoryData>;
-  displayedColumns = ['title', 'edit'];
+  displayedColumns = ['title', 'destination', 'createdDate', 'rating', 'ratesNr', 'view', 'edit', 'delete'];
 
   constructor() { }
 
@@ -19,4 +19,8 @@ export class StoryListComponent implements OnInit {
 
 export interface StoryData {
   title: string;
+  destination: string;
+  createdDate: string;
+  rating: number;
+  ratesNr: number;
 }

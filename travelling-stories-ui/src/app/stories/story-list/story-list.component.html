@@ -13,8 +13,40 @@
       <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="destination">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Destination</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.destination }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="createdDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Creation Date</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.createdDate }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="rating">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Rating</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.rating }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ratesNr">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Rates</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.ratesNr }} </mat-cell>
+    </ng-container>
+
+    <!--THE VIEW COLUMN-->
+    <ng-container matColumnDef="view">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let row"></mat-cell>
+    </ng-container>
+
     <!--THE EDIT COLUMN-->
     <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let row"></mat-cell>
+    </ng-container>
+
+    <!--THE DELETE COLUMN-->
+    <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
       <mat-cell *matCellDef="let row"></mat-cell>
     </ng-container>
