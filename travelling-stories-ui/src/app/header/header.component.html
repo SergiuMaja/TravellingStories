@@ -11,7 +11,7 @@
 
     <div class="collapse navbar-collapse" [ngClass]="{'in' : isCollapsed}">
       <ul class="nav navbar-nav">
-        <li><a href="#" *ngIf="authService.isAuthenticated()">Home</a></li>
+        <li routerLinkActive="active"><a routerLink="/stories" *ngIf="authService.isAuthenticated()">Home</a></li>
         <li routerLinkActive="active"><a routerLink="/users" *ngIf="authService.isAdminAuthenticated()">Users</a></li>
         <ng-template [ngIf]="authService.isRegularUserAuthenticated()">
           <li><a href="#">My Stories</a></li>

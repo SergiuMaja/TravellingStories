@@ -23,6 +23,7 @@ import { DropdownDirective } from "./shared/dropdown.directive";
 
 import { AuthService } from "./auth/auth.service";
 import { UserService } from "./users/user.service";
+import { AuthGuard } from "./auth/auth-guard.service";
 
 
 @NgModule({
@@ -51,7 +52,7 @@ import { UserService } from "./users/user.service";
     MatCheckboxModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService, UserService],
+  providers: [AuthService, UserService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

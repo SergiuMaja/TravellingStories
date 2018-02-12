@@ -1,5 +1,6 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
+import { AuthGuard } from "./auth/auth-guard.service";
 
 import { SignupComponent } from "./auth/signup/signup.component";
 import { SigninComponent } from "./auth/signin/signin.component";
@@ -13,8 +14,8 @@ import { StoryDetailComponent } from "./stories/story-detail/story-detail.compon
 import { StoryEditComponent } from "./stories/story-edit/story-edit.component";
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/stories', pathMatch: 'full'},
-  { path: 'stories', component: StoriesComponent,
+  { path: '', redirectTo: '/stories', pathMatch: 'full' },
+  { path: 'stories', component: StoriesComponent, canActivate: [AuthGuard],
     children:
       [
         { path: '', component: StoryListComponent },
