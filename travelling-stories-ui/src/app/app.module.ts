@@ -18,6 +18,7 @@ import { DropdownDirective } from "./shared/dropdown.directive";
 
 import { AuthService } from "./auth/auth.service";
 import { UserService } from "./users/user.service";
+import { UserEditComponent } from './users/user-edit/user-edit.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { UserService } from "./users/user.service";
     UserItemComponent,
     UserDetailComponent,
     UserStartComponent,
-    DropdownDirective
+    DropdownDirective,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,

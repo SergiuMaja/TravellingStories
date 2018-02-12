@@ -1,8 +1,13 @@
 h3 {
   display: inline-block;
   color: white;
+  margin: 15px 0px;
+  font-size: 20px;
 }
 .btn-group {
   margin-bottom: 15px;
 }
 
+a {
+  cursor: pointer;
+}
