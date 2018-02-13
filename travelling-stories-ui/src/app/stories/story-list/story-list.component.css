@@ -1,6 +1,12 @@
 .header {
   min-height: 64px;
   padding: 8px 24px 0;
+  display: flex;
+}
+
+.header .btn.btn-primary {
+  margin-right: 20px;
+  margin-bottom: 15px;
 }
 
 .container {
