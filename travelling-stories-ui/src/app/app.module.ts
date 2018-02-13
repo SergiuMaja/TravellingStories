@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { HttpModule } from "@angular/http";
-import { MatCheckboxModule, MatFormFieldModule, MatInputModule, MatPaginatorModule } from "@angular/material";
+import {
+  MatCheckboxModule, MatFormFieldModule, MatInputModule, MatPaginatorModule,
+  MatSortModule
+} from "@angular/material";
 import { MatTableModule } from "@angular/material/table";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -56,6 +59,7 @@ import { StoryService } from "./stories/story.service";
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
+    MatSortModule,
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],

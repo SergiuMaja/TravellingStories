@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatTableDataSource } from "@angular/material";
+import {Component, OnInit, OnDestroy, ViewChild, AfterViewInit, AfterContentInit} from '@angular/core';
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 import { StoryService } from "../story.service";
 import { Story } from "../story.model";
 import { Subscription } from "rxjs/Subscription";
@@ -9,27 +9,62 @@ import { Subscription } from "rxjs/Subscription";
   templateUrl: './story-list.component.html',
   styleUrls: ['./story-list.component.css']
 })
-export class StoryListComponent implements OnInit, OnDestroy {
+export class StoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   dataSource: MatTableDataSource<StoryData>;
   displayedColumns = ['title', 'destination', 'createdDate', 'rating', 'ratesNr', 'view', 'edit', 'delete'];
-  stories: Story[];
+  stories: Story[] = [];
   subscription: Subscription;
 
-  constructor(private storyService: StoryService) { }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(private storyService: StoryService) {
+    const storyRows = createStoryRows(this.stories);
+    this.dataSource = new MatTableDataSource(storyRows);
+  }
 
   ngOnInit() {
     this.subscription = this.storyService.storiesChanged.subscribe(
       (stories: Story[]) => {
         this.stories = stories;
+        this.dataSource.data = createStoryRows(stories);
       }
     );
     this.storyService.getStories();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); //Remove whitespace
+    filterValue = filterValue.toLowerCase(); //Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
+}
+
+function createStoryRows(stories: Story[]): StoryData[] {
+  let storyRows: StoryData[] = [];
+
+  for(let story of stories) {
+    let row = {
+      title: story.title,
+      destination: story.destination.title,
+      createdDate: story.createdDate,
+      rating: story.rating,
+      ratesNr: story.ratesNumber
+    }
+    storyRows.push(row);
+  }
+
+  return storyRows;
 }
 
 export interface StoryData {

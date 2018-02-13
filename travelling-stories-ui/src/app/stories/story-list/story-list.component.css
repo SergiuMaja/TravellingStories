@@ -18,3 +18,32 @@
   overflow: auto;
   max-height: 500px;
 }
+
+.mat-column-view,
+.mat-column-edit,
+.mat-column-delete {
+  text-align: center;
+  max-width: 100px;
+}
+
+.glyphicon {
+  font-size: 20px;
+  color: black;
+}
+
+.mat-row,
+.mat-header-row {
+  min-width: 800px;
+}
+
+.mat-column-title,
+.mat-column-destination {
+  min-width: 20%;
+}
+
+.mat-column-rating,
+.mat-column-ratesNr {
+  display: flex;
+  justify-content: center;
+}
+
