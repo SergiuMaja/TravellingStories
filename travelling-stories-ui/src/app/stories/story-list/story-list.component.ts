@@ -44,6 +44,18 @@ export class StoryListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dataSource.filter = filterValue;
   }
 
+  onViewStory(storyId: number) {
+    console.log(storyId);
+  }
+
+  onEditStory(storyId: number) {
+    console.log(storyId);
+  }
+
+  onDeleteStory(storyId: number) {
+    console.log(storyId);
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
@@ -55,6 +67,7 @@ function createStoryRows(stories: Story[]): StoryData[] {
 
   for(let story of stories) {
     let row = {
+      id: story.id,
       title: story.title,
       destination: story.destination.title,
       createdDate: story.createdDate,
@@ -68,6 +81,7 @@ function createStoryRows(stories: Story[]): StoryData[] {
 }
 
 export interface StoryData {
+  id: number;
   title: string;
   destination: string;
   createdDate: string;

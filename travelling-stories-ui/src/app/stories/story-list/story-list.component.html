@@ -38,7 +38,9 @@
     <ng-container matColumnDef="view">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-eye-open"></span></button>
+        <button type="button" class="btn btn-success" (click)="onViewStory(row.id)">
+          <span class="glyphicon glyphicon-eye-open"></span>
+        </button>
       </mat-cell>
     </ng-container>
 
@@ -46,7 +48,9 @@
     <ng-container matColumnDef="edit">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></button>
+        <button type="button" class="btn btn-primary" (click)="onEditStory(row.id)">
+          <span class="glyphicon glyphicon-edit"></span>
+        </button>
       </mat-cell>
     </ng-container>
 
@@ -54,7 +58,9 @@
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+        <button type="button" class="btn btn-danger" (click)="onDeleteStory(row.id)">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
       </mat-cell>
     </ng-container>
 
