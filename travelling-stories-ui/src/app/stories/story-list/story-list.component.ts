@@ -1,8 +1,9 @@
-import {Component, OnInit, OnDestroy, ViewChild, AfterViewInit, AfterContentInit} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 import { StoryService } from "../story.service";
 import { Story } from "../story.model";
 import { Subscription } from "rxjs/Subscription";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-story-list',
@@ -18,7 +19,9 @@ export class StoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private storyService: StoryService) {
+  constructor(private storyService: StoryService,
+              private router: Router,
+              private route: ActivatedRoute) {
     const storyRows = createStoryRows(this.stories);
     this.dataSource = new MatTableDataSource(storyRows);
   }
@@ -44,12 +47,16 @@ export class StoryListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dataSource.filter = filterValue;
   }
 
+  onAddNewStory() {
+    this.router.navigate(['new'], { relativeTo: this.route });
+  }
+
   onViewStory(storyId: number) {
-    console.log(storyId);
+    this.router.navigate([storyId], { relativeTo: this.route });
   }
 
   onEditStory(storyId: number) {
-    console.log(storyId);
+    this.router.navigate([storyId, 'edit'], { relativeTo: this.route });
   }
 
   onDeleteStory(storyId: number) {
@@ -73,10 +80,9 @@ function createStoryRows(stories: Story[]): StoryData[] {
       createdDate: story.createdDate,
       rating: story.rating,
       ratesNr: story.ratesNumber
-    }
+    };
     storyRows.push(row);
   }
-
   return storyRows;
 }
 

@@ -19,6 +19,7 @@ const appRoutes: Routes = [
     children:
       [
         { path: '', component: StoryListComponent },
+        { path: 'new', component: StoryEditComponent },
         { path: ':id', component: StoryDetailComponent },
         { path: ':id/edit', component: StoryEditComponent }
       ]
