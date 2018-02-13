@@ -1,0 +1,63 @@
+.main-hr-line {
+  border: 1px solid #555;
+}
+
+h3, h4 {
+  color: #337ab7;
+}
+
+.destination-title {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.destination-title > label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.destination-title > mat-form-field {
+  width: 45%;
+}
+
+.destination-title > input {
+  width: 50%;
+  display: inline-block;
+}
+
+.destination-location {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.destination-location > div {
+  display: inline-block;
+}
+
+.destination-location > .continent,
+.destination-location > .country {
+  margin-right: 15px;
+}
+
+agm-map {
+  height: 300px;
+  display: block;
+  margin-top: 5px;
+}
+
+.descriptions-row {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.descriptions-row > div {
+  display: inline-block;
+  width: 49%;
+}
+
+.form-action-buttons {
+  margin-bottom: 20px;
+}

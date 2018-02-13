@@ -5,10 +5,11 @@ import { AppRoutingModule } from "./app-routing.module";
 import { HttpModule } from "@angular/http";
 import {
   MatCheckboxModule, MatFormFieldModule, MatInputModule, MatPaginatorModule,
-  MatSortModule
+  MatSortModule, MatOptionModule, MatSelectModule
 } from "@angular/material";
 import { MatTableModule } from "@angular/material/table";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AgmCoreModule } from "@agm/core";
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -60,8 +61,13 @@ import { StoryService } from "./stories/story.service";
     MatInputModule,
     MatPaginatorModule,
     MatSortModule,
+    MatOptionModule,
+    MatSelectModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAQZxPPsIvhZ3JWYk8F5ykvVuAGHIHFDDQ'
+    })
   ],
   providers: [AuthService, UserService, AuthGuard, StoryService],
   bootstrap: [AppComponent]
