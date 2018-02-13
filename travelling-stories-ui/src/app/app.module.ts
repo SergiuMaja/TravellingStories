@@ -26,6 +26,7 @@ import { DropdownDirective } from "./shared/dropdown.directive";
 import { AuthService } from "./auth/auth.service";
 import { UserService } from "./users/user.service";
 import { AuthGuard } from "./auth/auth-guard.service";
+import { StoryService } from "./stories/story.service";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { AuthGuard } from "./auth/auth-guard.service";
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [AuthService, UserService, AuthGuard],
+  providers: [AuthService, UserService, AuthGuard, StoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

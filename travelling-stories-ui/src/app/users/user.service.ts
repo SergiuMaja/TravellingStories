@@ -12,7 +12,7 @@ export class UserService {
   constructor(private http: Http) {}
 
   getUsers() {
-    return this.http.get('http://localhost:8080/user/all').subscribe(
+    this.http.get('http://localhost:8080/user/all').subscribe(
       (response: Response) => {
         this.setUsers(response.json());
       }
