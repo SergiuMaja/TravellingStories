@@ -2,17 +2,21 @@
   <div class="col-xs-12">
     <h3>Story Details</h3>
     <hr class="main-hr-line">
-    <form>
+    <form [formGroup]="storyForm" (ngSubmit)="onSubmit()">
       <h4>General Information</h4>
       <hr>
       <div class="row">
         <div class="col-xs-12 col-md-8 col-md-offset-2">
             <label for="title">Title</label>
-            <input type="text" id="title" class="form-control">
+            <input type="text" id="title" class="form-control" formControlName="storyTitle">
             <ng-template [ngIf]="editMode">
-              <h5>Creator: </h5>
-              <h5>Created On: </h5>
-              <h5>Last Updated Date: </h5>
+              <label for="creator">Creator</label>
+              <input type="text" id="creator" class="form-control" [value]="creator.screenName"
+                     formControlName="creator">
+              <label for="createdDate">Created On</label>
+              <input type="text" id="createdDate" class="form-control" formControlName="createdDate">
+              <label for="updatedDate">Last Updated Date</label>
+              <input type="text" id="updatedDate" class="form-control" formControlName="updatedDate">
             </ng-template>
         </div>
       </div>
@@ -22,33 +26,34 @@
         <div class="col-xs-12 col-md-8 col-md-offset-2">
           <div class="destination-title">
             <label for="destinationTitle">Destination Title</label>
-            <mat-form-field *ngIf="editMode">
-              <mat-select placeholder="Existent destination titles" name="food" [(ngModel)]="destTitleSelected">
-                <mat-option *ngFor="let dest of destinations" [value]="dest.id">{{dest.title}}</mat-option>
+            <mat-form-field>
+              <mat-select placeholder="Existent destinations" name="existentDest">
+                <mat-option *ngFor="let dest of destinations" [value]="dest.id" (click)="onSelectDestination($event)">
+                  {{dest.title}}
+                </mat-option>
               </mat-select>
             </mat-form-field>
-            <input [ngStyle]="{float: editMode ? 'right' : 'none'}" [disabled]="destTitleSelected != null"
-                   type="text" id="destinationTitle" class="form-control">
+            <input type="text" id="destinationTitle" class="form-control" formControlName="destinationTitle">
           </div>
 
           <div class="destination-location">
             <div class="continent">
               <label for="continent">Continent</label>
-              <input type="text" id="continent" class="form-control">
+              <input type="text" id="continent" class="form-control" formControlName="continent">
             </div>
             <div class="country">
               <label for="country">Country</label>
-              <input type="text" id="country" class="form-control">
+              <input type="text" id="country" class="form-control" formControlName="country">
             </div>
             <div class="city">
               <label for="city">City</label>
-              <input type="text" id="city" class="form-control">
+              <input type="text" id="city" class="form-control" formControlName="city">
             </div>
           </div>
 
           <label for="locationPin">Location Pinpoint</label>
-          <agm-map id="locationPin" [latitude]="lat" [longitude]="lng" (mapClick)="onSelectDestination($event)">
-            <agm-marker [latitude]="lat" [longitude]="lng" *ngIf="destinationSelected"></agm-marker>
+          <agm-map id="locationPin" [latitude]="lat" [longitude]="lng" (mapClick)="onLocationPin($event)">
+            <agm-marker [latitude]="lat" [longitude]="lng" *ngIf="locationPinned"></agm-marker>
           </agm-map>
         </div>
       </div>
@@ -59,33 +64,39 @@
           <div class="descriptions-row">
             <div class="accommodation-description">
               <label for="accommodation">Accommodation</label>
-              <textarea type="text" id="accommodation" rows="6" class="form-control"></textarea>
+              <textarea type="text" id="accommodation" rows="6" class="form-control" formControlName="accommodation">
+              </textarea>
             </div>
             <div class="transportation-description">
               <label for="transportation">Transportation</label>
-              <textarea type="text" id="transportation" rows="6" class="form-control"></textarea>
+              <textarea type="text" id="transportation" rows="6" class="form-control" formControlName="transportation">
+              </textarea>
             </div>
           </div>
 
           <div class="descriptions-row">
             <div class="culture-description">
               <label for="culture">Culture</label>
-              <textarea type="text" id="culture" rows="6" class="form-control"></textarea>
+              <textarea type="text" id="culture" rows="6" class="form-control" formControlName="culture">
+              </textarea>
             </div>
             <div class="food-description">
               <label for="food">Food</label>
-              <textarea type="text" id="food" rows="6" class="form-control"></textarea>
+              <textarea type="text" id="food" rows="6" class="form-control" formControlName="food">
+              </textarea>
             </div>
           </div>
 
           <div class="descriptions-row">
             <div class="expenses-description">
               <label for="expenses">Expenses</label>
-              <textarea type="text" id="expenses" rows="6" class="form-control"></textarea>
+              <textarea type="text" id="expenses" rows="6" class="form-control" formControlName="expenses">
+              </textarea>
             </div>
             <div class="attractions-description">
               <label for="attractions">Tourist Attractions</label>
-              <textarea type="text" id="attractions" rows="6" class="form-control"></textarea>
+              <textarea type="text" id="attractions" rows="6" class="form-control" formControlName="attractions">
+              </textarea>
             </div>
           </div>
         </div>
