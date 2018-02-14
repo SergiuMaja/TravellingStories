@@ -32,6 +32,7 @@ import { UserService } from "./users/user.service";
 import { AuthGuard } from "./auth/auth-guard.service";
 import { StoryService } from "./stories/story.service";
 import { DescriptionService } from "./stories/description.service";
+import { DestinationService } from "./stories/destination.service";
 
 @NgModule({
   declarations: [
@@ -70,7 +71,7 @@ import { DescriptionService } from "./stories/description.service";
       apiKey: 'AIzaSyAQZxPPsIvhZ3JWYk8F5ykvVuAGHIHFDDQ'
     })
   ],
-  providers: [AuthService, UserService, AuthGuard, StoryService, DescriptionService],
+  providers: [AuthService, UserService, AuthGuard, StoryService, DescriptionService, DestinationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

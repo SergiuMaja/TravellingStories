@@ -5,8 +5,9 @@ import { StoryService } from "../story.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Story } from "../story.model";
 import { User } from "../../users/user.model";
-import { Subscription } from "rxjs";
+import { Subscription } from "rxjs/Subscription";
 import { DescriptionService } from "../description.service";
+import { DestinationService } from "../destination.service";
 
 @Component({
   selector: 'app-story-edit',
@@ -19,38 +20,26 @@ export class StoryEditComponent implements OnInit, OnDestroy {
   storyForm: FormGroup;
   creator: User = new User();
   creatorChangedSubscription: Subscription;
+  destinations: Destination[] = [];
+  destinationsChangedSubscription: Subscription;
   lat: number = 46.7428338;
   lng: number = 23.5009179;
   locationPinned: boolean = false;
-  destinations: Destination[] = [
-    {
-      "id": 2,
-      "continent": "Europe",
-      "country": "Romania",
-      "city": "Bucharest",
-      "title": "Bucharest Old Town",
-      "latitude": null,
-      "longitude": null
-    },
-    {
-      "id": 3,
-      "continent": "Europe",
-      "country": "Romania",
-      "city": "Brasov",
-      "title": "Peles Castle",
-      "latitude": null,
-      "longitude": null
-    }
-  ];
 
   constructor(private route: ActivatedRoute,
               private storyService: StoryService,
-              private descriptionService: DescriptionService) { }
+              private descriptionService: DescriptionService,
+              private destinationService: DestinationService) { }
 
   ngOnInit() {
     this.creatorChangedSubscription = this.storyService.creatorChanged.subscribe(
       (creator: User) => {
         this.creator = creator;
+      }
+    );
+    this.destinationsChangedSubscription = this.destinationService.destinationsChanged.subscribe(
+      (destinations: Destination[]) => {
+        this.destinations = destinations;
       }
     );
     this.route.params.subscribe(
@@ -60,6 +49,7 @@ export class StoryEditComponent implements OnInit, OnDestroy {
         this.initForm();
       }
     );
+    this.destinationService.getDestinations();
   }
 
   private initForm() {
@@ -95,7 +85,6 @@ export class StoryEditComponent implements OnInit, OnDestroy {
       this.lng = +formDestination.longitude;
       this.locationPinned = true;
     }
-
   }
 
   onSelectDestination(event) {
@@ -111,6 +100,7 @@ export class StoryEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.creatorChangedSubscription.unsubscribe();
+    this.destinationsChangedSubscription.unsubscribe();
   }
 
 }
