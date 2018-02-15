@@ -106,7 +106,7 @@
       <div class="row">
         <div class="col-xs-12 col-md-8 col-md-offset-2">
           <div class="form-action-buttons">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!storyForm.valid||!storyForm.dirty">Submit</button>
             <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
           </div>
         </div>
