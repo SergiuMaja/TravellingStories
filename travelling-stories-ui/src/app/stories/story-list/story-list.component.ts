@@ -66,7 +66,7 @@ export class StoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onDeleteStory(storyId: number) {
-    console.log(storyId);
+    this.storyService.deleteStory(storyId);
   }
 
   ngOnDestroy() {

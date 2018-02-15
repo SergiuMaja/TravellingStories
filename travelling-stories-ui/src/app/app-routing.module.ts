@@ -24,7 +24,7 @@ const appRoutes: Routes = [
         { path: ':id/edit', component: StoryEditComponent }
       ]
   },
-  { path: 'users', component: UsersComponent,
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard],
     children:
       [
         { path: '', component: UserStartComponent },

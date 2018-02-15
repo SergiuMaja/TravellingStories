@@ -70,4 +70,21 @@ export class StoryService {
     );
   }
 
+  deleteStory(id: number) {
+    this.stories.forEach((story, index) => {
+      if(story['id'] === id) {
+        this.stories.splice(index, 1);
+      }
+    });
+    //DELETING THE STORY FROM THE SERVER
+    this.http.delete('http://localhost:8080/story/delete/' + id).subscribe(
+      (response: Response) => {
+        if(response.status === 200) {
+          this.storiesChanged.next(this.stories.slice());
+        }
+      },
+      (error) => console.log(error)
+    );
+  }
+
 }
