@@ -1,3 +1,91 @@
-<p>
-  story-detail works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <h3>Story Details</h3>
+    <hr class="main-hr-line">
+    <h4>General Information</h4>
+    <hr>
+    <div class="row">
+      <div class="col-xs-12 col-md-8 col-md-offset-2">
+        <label for="title">Title</label>
+        <input type="text" id="title" disabled class="form-control">
+        <label for="creator">Creator</label>
+        <input type="text" id="creator" disabled class="form-control">
+        <label for="createdDate">Created On</label>
+        <input type="text" id="createdDate" disabled class="form-control">
+        <label for="updatedDate">Last Updated Date</label>
+        <input type="text" id="updatedDate" disabled class="form-control">
+      </div>
+    </div>
+    <h4>Destination</h4>
+    <hr>
+    <div class="row">
+      <div class="col-xs-12 col-md-8 col-md-offset-2">
+        <div class="destination-title">
+          <label for="destinationTitle">Destination Title</label>
+          <input type="text" id="destinationTitle" disabled class="form-control">
+          <button type="button" class="btn btn-primary">Add To Favorites</button>
+        </div>
+
+        <div class="destination-location">
+          <div class="continent">
+            <label for="continent">Continent</label>
+            <input type="text" id="continent" disabled class="form-control">
+          </div>
+          <div class="country">
+            <label for="country">Country</label>
+            <input type="text" id="country" disabled class="form-control">
+          </div>
+          <div class="city">
+            <label for="city">City</label>
+            <input type="text" id="city" disabled class="form-control">
+          </div>
+        </div>
+
+        <label for="locationPin">Location Pinpoint</label>
+        <agm-map id="locationPin" [latitude]="lat" [longitude]="lng">
+          <agm-marker [latitude]="lat" [longitude]="lng" *ngIf="locationPinned"></agm-marker>
+        </agm-map>
+      </div>
+    </div>
+
+    <h4>Descriptions</h4>
+    <hr>
+    <div class="row">
+      <div class="col-xs-12 col-md-8 col-md-offset-2">
+        <div class="descriptions-row">
+          <div class="accommodation-description">
+            <label for="accommodation">Accommodation</label>
+            <textarea type="text" id="accommodation" rows="6" disabled class="form-control"></textarea>
+          </div>
+          <div class="transportation-description">
+            <label for="transportation">Transportation</label>
+            <textarea type="text" id="transportation" rows="6" disabled class="form-control"></textarea>
+          </div>
+        </div>
+
+        <div class="descriptions-row">
+          <div class="culture-description">
+            <label for="culture">Culture</label>
+            <textarea type="text" id="culture" rows="6" disabled class="form-control"></textarea>
+          </div>
+          <div class="food-description">
+            <label for="food">Food</label>
+            <textarea type="text" id="food" rows="6" disabled class="form-control"></textarea>
+          </div>
+        </div>
+
+        <div class="descriptions-row">
+          <div class="expenses-description">
+            <label for="expenses">Expenses</label>
+            <textarea type="text" id="expenses" rows="6" disabled class="form-control"></textarea>
+          </div>
+          <div class="attractions-description">
+            <label for="attractions">Tourist Attractions</label>
+            <textarea type="text" id="attractions" rows="6" disabled class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="main-hr-line">
+  </div>
+</div>
