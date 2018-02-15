@@ -47,4 +47,27 @@ export class StoryService {
     );
   }
 
+  addStory(story: Story) {
+    this.http.post('http://localhost:8080/story/save', story).subscribe(
+      (response: Response) => {
+        this.stories.push(response.json());
+        this.storiesChanged.next(this.stories.slice());
+      }
+    );
+  }
+
+  updateStory(id: number, newStory: Story) {
+    newStory.id = id;
+    this.http.post('http://localhost:8080/story/save', newStory).subscribe(
+      (response: Response) => {
+        for (let story of this.stories) {
+          if(story.id === id) {
+            story = response.json();
+            this.storiesChanged.next(this.stories.slice());
+          }
+        }
+      }
+    );
+  }
+
 }

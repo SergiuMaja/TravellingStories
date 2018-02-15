@@ -5,12 +5,12 @@ import { Description } from "./description.model";
 
 export class DescriptionService {
 
-  getDetailsByType(type: string, descriptions: Description[]) {
+  getDescriptionByType(type: string, descriptions: Description[]) {
     for(let description of descriptions) {
       if(description.type === type) {
-        return description.details;
+        return description;
       }
     }
-    return '';
+    return new Description('', '');
   }
 }

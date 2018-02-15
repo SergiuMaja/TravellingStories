@@ -3,5 +3,8 @@ export class Description {
   public type: string;
   public details: string;
 
-  constructor() {}
+  constructor(type: string, details: string) {
+    this.type = type;
+    this.details = details;
+  }
 }
