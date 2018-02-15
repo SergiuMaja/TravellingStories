@@ -46,7 +46,10 @@ public class EmailSendListener {
 		if (recipients != null && recipients.size() != 0) {
 			LOGGER.info("Sending email to users");
 			for (User user : recipients) {
-				emailService.sendSimpleMessage(user.getEmail(), Constant.STORY_WITH_DESTINATION_SUBJECT, emailMessage);
+				if (user.getReceiveEmail()) {
+					emailService.sendSimpleMessage(user.getEmail(), Constant.STORY_WITH_DESTINATION_SUBJECT,
+							emailMessage);
+				}
 			}
 			LOGGER.info("Emails were sent to users");
 		} else {
