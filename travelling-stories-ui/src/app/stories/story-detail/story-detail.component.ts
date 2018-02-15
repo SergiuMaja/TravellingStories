@@ -1,11 +1,11 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
-import {Story} from "../story.model";
-import {StoryService} from "../story.service";
-import {User} from "../../users/user.model";
-import {Subscription} from "rxjs";
-import {DescriptionService} from "../description.service";
-import {DestinationService} from "../destination.service";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Params } from "@angular/router";
+import { Story } from "../story.model";
+import { StoryService } from "../story.service";
+import { User } from "../../users/user.model";
+import { Subscription } from "rxjs/Subscription";
+import { DescriptionService } from "../description.service";
+import { DestinationService } from "../destination.service";
 
 @Component({
   selector: 'app-story-detail',

@@ -4,6 +4,7 @@ import { StoryService } from "../story.service";
 import { Story } from "../story.model";
 import { Subscription } from "rxjs/Subscription";
 import { Router, ActivatedRoute } from "@angular/router";
+import {AuthService} from "../../auth/auth.service";
 
 @Component({
   selector: 'app-story-list',
@@ -12,7 +13,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 export class StoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   dataSource: MatTableDataSource<StoryData>;
-  displayedColumns = ['title', 'destination', 'createdDate', 'rating', 'ratesNr', 'view', 'edit', 'delete'];
+  displayedColumns = ['title', 'destination', 'createdDate', 'rating', 'ratesNr', 'view'];
   stories: Story[] = [];
   subscription: Subscription;
 
@@ -21,9 +22,14 @@ export class StoryListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private storyService: StoryService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private authService: AuthService) {
     const storyRows = createStoryRows(this.stories);
     this.dataSource = new MatTableDataSource(storyRows);
+    if(this.authService.isAdminAuthenticated()) {
+      this.displayedColumns.push('edit');
+      this.displayedColumns.push('delete');
+    }
   }
 
   ngOnInit() {
