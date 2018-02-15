@@ -5,6 +5,7 @@ import {StoryService} from "../story.service";
 import {User} from "../../users/user.model";
 import {Subscription} from "rxjs";
 import {DescriptionService} from "../description.service";
+import {DestinationService} from "../destination.service";
 
 @Component({
   selector: 'app-story-detail',
@@ -23,7 +24,8 @@ export class StoryDetailComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private storyService: StoryService,
-              private descriptionService: DescriptionService) {}
+              private descriptionService: DescriptionService,
+              private destinationService: DestinationService) {}
 
   ngOnInit() {
     this.creatorChangedSubscription = this.storyService.creatorChanged.subscribe(
@@ -45,6 +47,10 @@ export class StoryDetailComponent implements OnInit, OnDestroy {
 
   getDescriptionDetailsByType(type: string) {
     return this.descriptionService.getDescriptionByType(type, this.story.descriptions).details;
+  }
+
+  onAddToFavorites() {
+    this.destinationService.addDestinationToFavorites(this.story.destination.id);
   }
 
   ngOnDestroy() {

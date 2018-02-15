@@ -24,7 +24,7 @@
           <label for="destinationTitle">Destination Title</label>
           <input type="text" id="destinationTitle" disabled class="form-control"
                  [value]="story.destination.title">
-          <button type="button" class="btn btn-primary">Add To Favorites</button>
+          <button type="button" class="btn btn-primary" (click)="onAddToFavorites()">Add To Favorites</button>
         </div>
 
         <div class="destination-location">

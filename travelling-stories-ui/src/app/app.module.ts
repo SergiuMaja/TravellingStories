@@ -4,8 +4,13 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { HttpModule } from "@angular/http";
 import {
-  MatCheckboxModule, MatFormFieldModule, MatInputModule, MatPaginatorModule,
-  MatSortModule, MatOptionModule, MatSelectModule
+  MatCheckboxModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatOptionModule,
+  MatSelectModule
 } from "@angular/material";
 import { MatTableModule } from "@angular/material/table";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
