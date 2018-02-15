@@ -158,11 +158,12 @@ export class StoryEditComponent implements OnInit, OnDestroy {
     if(this.editMode) {
       savedStory.creatorId = this.creator.id;
       this.storyService.updateStory(this.storyId, savedStory);
+      this.onCancel();
     } else {
       savedStory.creatorId = this.authService.authenticatedUser.id;
       this.storyService.addStory(savedStory);
+      this.onCancel();
     }
-    console.log(savedStory);
   }
 
   onCancel() {
