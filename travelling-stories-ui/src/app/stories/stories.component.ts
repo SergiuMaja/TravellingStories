@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../auth/auth.service";
 import { Http, Response, RequestOptions, ResponseContentType } from "@angular/http";
 import { saveAs } from "file-saver";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-stories',
@@ -11,9 +12,14 @@ import { saveAs } from "file-saver";
 export class StoriesComponent implements OnInit {
 
   constructor(private authService: AuthService,
+              private router: Router,
               private http: Http) {}
 
   ngOnInit() {
+  }
+
+  showReportGenerator() {
+    return this.authService.isAdminAuthenticated() && this.router.url === '/stories';
   }
 
   onGenerateReport() {

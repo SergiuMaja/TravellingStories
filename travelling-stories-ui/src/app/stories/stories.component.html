@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-12">
     <router-outlet></router-outlet>
-    <ng-template [ngIf]="authService.isAdminAuthenticated()">
+    <ng-template [ngIf]="showReportGenerator()">
       <hr>
       <button type="button" class="btn btn-warning" (click)="onGenerateReport()">
         Generate Application Report
