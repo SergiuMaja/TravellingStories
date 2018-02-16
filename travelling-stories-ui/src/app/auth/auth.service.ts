@@ -1,14 +1,12 @@
 import { User } from "../users/user.model";
 import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
-import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthService {
   authenticatedUser: User;
 
-  constructor(private http: Http,
-              private router: Router) {}
+  constructor(private http: Http) {}
 
   signupUser (user: User) {
     return this.http.post('http://localhost:8080/user/save', user);
@@ -20,15 +18,7 @@ export class AuthService {
       "password": password
     };
 
-    this.http.post('http://localhost:8080/login', body).subscribe(
-      (response) => {
-        if(response.status === 200) {
-          this.authenticatedUser = response.json();
-          this.router.navigate(['/']);
-        }
-      },
-      (error) => console.log(error)
-    );
+    return this.http.post('http://localhost:8080/login', body);
   }
 
   isAuthenticated() {

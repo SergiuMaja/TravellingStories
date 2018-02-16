@@ -16,6 +16,9 @@
       </div>
       <div class="btn-row">
         <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Sign In</button>
+        <span class="help-block" *ngIf="invalidCredentials">
+          Invalid credentials! Please verify that you inserted the correct credentials!
+        </span>
       </div>
     </form>
   </div>

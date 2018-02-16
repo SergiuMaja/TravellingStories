@@ -15,6 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
 import ro.tuc.travellingstories.dto.DestinationDTO;
@@ -163,7 +164,7 @@ public class UserService {
 		
 		user.setId(userDTO.getId());
 		user.setScreenName(userDTO.getScreenName());
-		user.setPassword(userDTO.getPassword());
+		user.setPassword(Base64Utils.encodeToString(userDTO.getPassword().getBytes()));
 		user.setEmail(userDTO.getEmail());
 		Date registrationDate = userDTO.getRegistrationDate() == null ? new Date() : FORMATTER.parse(userDTO.getRegistrationDate());
 		user.setRegistrationDate(registrationDate);

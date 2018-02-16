@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
 import ro.tuc.travellingstories.dto.UserDTO;
@@ -28,7 +29,9 @@ public class LoginService {
 			return null;
 		}
 		
-		User user = userRepository.findByScreenNameAndPassword(screenName, password);
+		String encodedPassword = Base64Utils.encodeToString(password.getBytes());
+		
+		User user = userRepository.findByScreenNameAndPassword(screenName, encodedPassword);
 		
 		if(user == null) {
 			LOGGER.error("Invalid credentials. User was not found.");
