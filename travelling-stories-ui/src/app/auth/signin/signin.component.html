@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-    <div class="row" id="welcomeContainer">
-      <label>Welcome! Please sign in to have access in the application</label>
+    <div class="welcome-container">
+      <h3>Welcome! Please sign in to have access in the application</h3>
     </div>
     <form (ngSubmit)="onSignin(f)" #f="ngForm">
       <div class="form-group">
@@ -14,7 +14,9 @@
         <input type="password" id="password" class="form-control" name="password" ngModel required #password="ngModel">
         <span class="help-block" *ngIf="!password.valid && password.touched">Please enter a password!</span>
       </div>
-      <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Sign In</button>
+      <div class="btn-row">
+        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Sign In</button>
+      </div>
     </form>
   </div>
 </div>

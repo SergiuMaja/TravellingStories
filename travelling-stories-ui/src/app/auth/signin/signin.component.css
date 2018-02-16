@@ -1,5 +1,11 @@
-#welcomeContainer {
+.welcome-container {
   text-align: center;
+  margin-bottom: 50px;
+}
+
+.welcome-container > h3 {
+  color: #337ab7;
+  text-shadow: 1px 1px 5px;
 }
 
 input.ng-invalid.ng-touched {
@@ -9,4 +15,8 @@ input.ng-invalid.ng-touched {
 .help-block {
   color: red;
   font-size: 12px;
+}
+
+.btn-row {
+  text-align: center;
 }
