@@ -3,16 +3,18 @@ import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import { Subject } from "rxjs";
 import { FormGroup } from "@angular/forms";
+import { Globals } from "../shared/globals.service";
 
 @Injectable()
 export class UserService {
   usersChanged = new Subject<User[]>();
   private users: User[] = [];
 
-  constructor(private http: Http) {}
+  constructor(private http: Http,
+              private globals: Globals) {}
 
   getUsers() {
-    this.http.get('http://localhost:8080/user/all').subscribe(
+    this.http.get('http://'+ this.globals.host +'/user/all').subscribe(
       (response: Response) => {
         this.setUsers(response.json());
       }
@@ -47,7 +49,7 @@ export class UserService {
     }
     this.usersChanged.next(this.users.slice());
     //SAVING THE USER ON THE SERVER
-    this.http.post('http://localhost:8080/user/save', updatedUser).subscribe(
+    this.http.post('http://'+ this.globals.host +'/user/save', updatedUser).subscribe(
       (response) => {
         console.log(response);
       },
@@ -63,7 +65,7 @@ export class UserService {
       }
     });
     //DELETING THE USER FROM THE SERVER
-    this.http.delete('http://localhost:8080/user/delete/' + id).subscribe(
+    this.http.delete('http://'+ this.globals.host +'/user/delete/' + id).subscribe(
       (response) => {
         if(response.status === 200) {
           this.usersChanged.next(this.users.slice());

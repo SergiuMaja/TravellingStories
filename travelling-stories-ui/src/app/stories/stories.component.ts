@@ -3,6 +3,7 @@ import { AuthService } from "../auth/auth.service";
 import { Http, Response, RequestOptions, ResponseContentType } from "@angular/http";
 import { saveAs } from "file-saver";
 import { Router } from "@angular/router";
+import { Globals } from "../shared/globals.service";
 
 @Component({
   selector: 'app-stories',
@@ -13,7 +14,8 @@ export class StoriesComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private http: Http) {}
+              private http: Http,
+              private globals: Globals) {}
 
   ngOnInit() {
   }
@@ -24,7 +26,7 @@ export class StoriesComponent implements OnInit {
 
   onGenerateReport() {
     let options = new RequestOptions({responseType: ResponseContentType.Blob});
-    this.http.get('http://localhost:8080/report/pdf', options).subscribe(
+    this.http.get('http://'+ this.globals.host +'/report/pdf', options).subscribe(
       (response: Response) => {
         var blob = response.blob();
         saveAs(blob, "applicationReport");

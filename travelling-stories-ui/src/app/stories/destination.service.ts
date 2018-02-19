@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { Subject } from "rxjs/Subject";
 import { Destination } from "./destination.model";
 import { Http, Response } from "@angular/http";
-import {AuthService} from "../auth/auth.service";
+import { AuthService } from "../auth/auth.service";
+import { Globals } from "../shared/globals.service";
 
 @Injectable()
 export class DestinationService {
@@ -10,10 +11,11 @@ export class DestinationService {
   private destinations: Destination[] = [];
 
   constructor(private http: Http,
-              private authService: AuthService) {}
+              private authService: AuthService,
+              private globals: Globals) {}
 
   getDestinations() {
-    this.http.get('http://localhost:8080/destination/all').subscribe(
+    this.http.get('http://'+ this.globals.host +'/destination/all').subscribe(
       (response: Response) => {
         this.setDestinations(response.json());
       }
@@ -22,7 +24,7 @@ export class DestinationService {
 
   addDestinationToFavorites(destinationId: number) {
     let body = { 'userId': this.authService.authenticatedUser.id };
-    this.http.post('http://localhost:8080/destination/' + destinationId + '/favorite', body)
+    this.http.post('http://'+ this.globals.host +'/destination/' + destinationId + '/favorite', body)
       .subscribe(
         (response: Response) => {
           if(response.status === 200) {

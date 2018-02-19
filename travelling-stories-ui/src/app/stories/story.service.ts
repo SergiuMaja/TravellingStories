@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Story } from "./story.model";
 import { Subject } from "rxjs";
 import { User } from "../users/user.model";
+import { Globals } from "../shared/globals.service";
 
 @Injectable()
 export class StoryService {
@@ -11,10 +12,11 @@ export class StoryService {
   private stories: Story[] = [];
   private creator: User = new User();
 
-  constructor(private http: Http) {}
+  constructor(private http: Http,
+              private globals: Globals) {}
 
   getStories() {
-    this.http.get('http://localhost:8080/story/all').subscribe(
+    this.http.get('http://'+ this.globals.host +'/story/all').subscribe(
       (response: Response) => {
         this.setStories(response.json());
       }
@@ -40,7 +42,7 @@ export class StoryService {
   }
 
   getStoryCreator(userId: number) {
-    return this.http.get('http://localhost:8080/user/' + userId).subscribe(
+    return this.http.get('http://'+ this.globals.host +'/user/' + userId).subscribe(
       (response: Response) => {
         this.setStoryCreator(response.json());
       }
@@ -48,7 +50,7 @@ export class StoryService {
   }
 
   addStory(story: Story) {
-    this.http.post('http://localhost:8080/story/save', story).subscribe(
+    this.http.post('http://'+ this.globals.host +'/story/save', story).subscribe(
       (response: Response) => {
         this.stories.push(response.json());
         this.storiesChanged.next(this.stories.slice());
@@ -58,7 +60,7 @@ export class StoryService {
 
   updateStory(id: number, newStory: Story) {
     newStory.id = id;
-    this.http.post('http://localhost:8080/story/save', newStory).subscribe(
+    this.http.post('http://'+ this.globals.host +'/story/save', newStory).subscribe(
       (response: Response) => {
         for (let story of this.stories) {
           if(story.id === id) {
@@ -77,7 +79,7 @@ export class StoryService {
       }
     });
     //DELETING THE STORY FROM THE SERVER
-    this.http.delete('http://localhost:8080/story/delete/' + id).subscribe(
+    this.http.delete('http://'+ this.globals.host +'/story/delete/' + id).subscribe(
       (response: Response) => {
         if(response.status === 200) {
           this.storiesChanged.next(this.stories.slice());
