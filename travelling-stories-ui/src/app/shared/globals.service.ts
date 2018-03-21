@@ -1,3 +1,3 @@
 export class Globals {
-  host: string = '192.168.0.103:8080';
+  host: string = 'localhost:8080';
 }

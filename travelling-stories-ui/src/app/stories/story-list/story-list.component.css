@@ -1,5 +1,4 @@
 .header {
-  min-height: 64px;
   padding: 8px 24px 0;
   display: flex;
 }
@@ -9,12 +8,6 @@
   margin-bottom: 15px;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  min-width: 300px;
-}
-
 .mat-form-field {
   width: 100%;
   font-size: 14px;
@@ -22,7 +15,6 @@
 
 .mat-table {
   overflow: auto;
-  max-height: 500px;
 }
 
 .mat-column-view,
